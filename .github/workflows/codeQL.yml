@@ -14,12 +14,18 @@ jobs:
       actions: read
       contents: read
 
+    strategy:
+      matrix:
+        language: [python, javascript, java, go, ruby]  # Add more languages as needed
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v1
+        with:
+          languages: ${{ matrix.language }}  # Using the matrix language for each job
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
